@@ -4,7 +4,7 @@ import csh.studytobyspring.model.Member;
 
 import java.util.List;
 
-public class PostgresqlDao extends Dao {
+public class MySqlDao extends Dao {
 
     @Override
     public Member saveMember(Member member) {
