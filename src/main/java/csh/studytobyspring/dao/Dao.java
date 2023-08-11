@@ -8,9 +8,9 @@ import java.util.Map;
 
 public abstract class Dao {
 
-    public static Map<String, Member> memberMap = new HashMap<>();
+    public ConnectionMaker connectionMaker = new PostgresqlConnectionMaker();
 
-    public abstract Connection getConnection();
+    public static Map<String, Member> memberMap = new HashMap<>();
 
     public abstract Member saveMember(Member member);
 
