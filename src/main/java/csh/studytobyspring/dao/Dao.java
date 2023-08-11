@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Dao {
+public class Dao {
 
     private final ConnectionMaker connectionMaker;
 
@@ -16,14 +16,25 @@ public abstract class Dao {
 
     public static Map<String, Member> memberMap = new HashMap<>();
 
-    public abstract Member saveMember(Member member);
+    public Member saveMember(Member member) {
+        return memberMap.put(member.getId(), member);
+    }
 
-    public abstract Member getMember(String id);
+    public Member getMember(String id) {
+        return memberMap.get(id);
+    }
 
-    public abstract List<Member> getMembers();
+    public List<Member> getMembers() {
+        return memberMap.values().stream().toList();
+    }
 
-    public abstract Member updateMember(String id, Member updateMember);
+    public Member updateMember(String id, Member updateMember) {
+        return memberMap.put(id, updateMember);
+    }
 
-    public abstract boolean deleteMember(String id);
+    public boolean deleteMember(String id) {
+        memberMap.remove(id);
+        return true;
+    }
 
 }
