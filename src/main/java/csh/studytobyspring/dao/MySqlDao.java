@@ -6,9 +6,8 @@ import java.util.List;
 
 public class MySqlDao extends Dao {
 
-    @Override
-    public Connection getConnection() {
-        return new MySqlConnection();
+    public MySqlDao(ConnectionMaker connectionMaker) {
+        super(connectionMaker);
     }
 
     @Override

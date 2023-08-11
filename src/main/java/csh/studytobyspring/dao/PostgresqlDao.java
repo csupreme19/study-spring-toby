@@ -6,9 +6,8 @@ import java.util.List;
 
 public class PostgresqlDao extends Dao {
 
-    @Override
-    public Connection getConnection() {
-        return new PostgresqlConnection();
+    public PostgresqlDao(ConnectionMaker connectionMaker) {
+        super(connectionMaker);
     }
 
     @Override

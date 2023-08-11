@@ -8,7 +8,11 @@ import java.util.Map;
 
 public abstract class Dao {
 
-    public ConnectionMaker connectionMaker = new PostgresqlConnectionMaker();
+    private final ConnectionMaker connectionMaker;
+
+    public Dao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
 
     public static Map<String, Member> memberMap = new HashMap<>();
 
