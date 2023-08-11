@@ -7,6 +7,11 @@ import java.util.List;
 public class PostgresqlDao extends Dao {
 
     @Override
+    public Connection getConnection() {
+        return new PostgresqlConnection();
+    }
+
+    @Override
     public Member saveMember(Member member) {
         return memberMap.put(member.getId(), member);
     }

@@ -7,6 +7,11 @@ import java.util.List;
 public class MySqlDao extends Dao {
 
     @Override
+    public Connection getConnection() {
+        return new MySqlConnection();
+    }
+
+    @Override
     public Member saveMember(Member member) {
         return memberMap.put(member.getId(), member);
     }

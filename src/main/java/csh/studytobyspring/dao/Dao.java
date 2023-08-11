@@ -10,6 +10,8 @@ public abstract class Dao {
 
     public static Map<String, Member> memberMap = new HashMap<>();
 
+    public abstract Connection getConnection();
+
     public abstract Member saveMember(Member member);
 
     public abstract Member getMember(String id);
