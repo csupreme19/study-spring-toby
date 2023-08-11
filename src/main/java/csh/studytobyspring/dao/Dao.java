@@ -8,6 +8,25 @@ import java.util.Map;
 
 public class Dao {
 
+    private ThreadLocal<Integer> num = new ThreadLocal<>() {
+        @Override
+        protected Integer initialValue() {
+            return 0;
+        }
+    };
+
+    public int add(int i) {
+        num.set(num.get() + i);
+        return num.get();
+    }
+
+    private static Dao INSTANCE;
+
+    public static synchronized Dao getInstance() {
+        if (INSTANCE == null) INSTANCE = new Dao(new PostgresqlConnectionMaker());
+        return INSTANCE;
+    }
+
     private final ConnectionMaker connectionMaker;
 
     public Dao(ConnectionMaker connectionMaker) {
