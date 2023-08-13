@@ -1,11 +1,17 @@
 package csh.studytobyspring.dao;
 
 import csh.studytobyspring.model.Member;
+import lombok.extern.slf4j.Slf4j;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class MemberDao {
 
     private final ConnectionMaker connectionMaker;
@@ -39,5 +45,45 @@ public class MemberDao {
 
     public Member findMember(Long id) {
         return getMember(id);
+    }
+
+    public List<Member> selectMembers() throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = connectionMaker.getConnection();
+            pstmt = conn.prepareStatement("delete from members");
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            log.error("db error", e);
+            throw e;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    log.error("error", e);
+                }
+            }
+
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    log.error("error", e);
+                }
+            }
+
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    log.error("error", e);
+                }
+            }
+        }
+
+        return new ArrayList<>();
     }
 }
