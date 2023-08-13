@@ -11,6 +11,16 @@ import java.sql.Statement;
 @Slf4j
 public class JdbcContext {
 
+    public void executeSql(final String query) throws SQLException {
+        workWithStatementStrategy(
+                new StatementStrategy() {
+                    public PreparedStatement prepareStatement(Connection c) throws SQLException {
+                        return c.prepareStatement(query);
+                    }
+                }
+        );
+    }
+
     private DataSource dataSource;
 
     private ConnectionMaker connectionMaker;
