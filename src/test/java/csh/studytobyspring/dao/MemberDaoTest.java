@@ -1,28 +1,18 @@
 package csh.studytobyspring.dao;
 
 import csh.studytobyspring.model.Member;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
-@SpringBootTest(classes = {MemberDao.class, PostgresqlConnectionMaker.class})
 class MemberDaoTest {
 
-    @Autowired
     MemberDao dao;
-
-    @BeforeAll
-    static void beforeAll() {
-        log.info("테스트 시작");
-    }
 
     @BeforeEach
     void setUp() {
-        log.info("단위 테스트 시작");
+        dao = new MemberDao(new PostgresqlConnectionMaker());
     }
 
     @Test
@@ -48,13 +38,4 @@ class MemberDaoTest {
 
     }
 
-    @AfterEach
-    void tearDown() {
-        log.info("단위 테스트 종료");
-    }
-
-    @AfterAll
-    static void afterAll() {
-        log.info("테스트 종료");
-    }
 }
