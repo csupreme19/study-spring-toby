@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,31 +60,35 @@ public class MemberDao {
             log.error("db error", e);
             throw e;
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    log.error("error", e);
-                }
-            }
-
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    log.error("error", e);
-                }
-            }
-
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    log.error("error", e);
-                }
-            }
+            close(conn, pstmt, rs);
         }
 
         return new ArrayList<>();
+    }
+
+    private void close(Connection conn, Statement stmt, ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                log.error("error", e);
+            }
+        }
+
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                log.error("error", e);
+            }
+        }
+
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                log.error("error", e);
+            }
+        }
     }
 }
