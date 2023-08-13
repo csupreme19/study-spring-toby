@@ -8,25 +8,6 @@ import java.util.Map;
 
 public class MemberDao {
 
-    private ThreadLocal<Integer> num = new ThreadLocal<>() {
-        @Override
-        protected Integer initialValue() {
-            return 0;
-        }
-    };
-
-    public int add(int i) {
-        num.set(num.get() + i);
-        return num.get();
-    }
-
-    private static MemberDao INSTANCE;
-
-    public static synchronized MemberDao getInstance() {
-        if (INSTANCE == null) INSTANCE = new MemberDao(new PostgresqlConnectionMaker());
-        return INSTANCE;
-    }
-
     private final ConnectionMaker connectionMaker;
 
     public MemberDao(ConnectionMaker connectionMaker) {

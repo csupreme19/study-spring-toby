@@ -2,15 +2,17 @@ package csh.studytobyspring.dao;
 
 import csh.studytobyspring.model.Member;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
+@SpringBootTest(classes = {MemberDao.class, PostgresqlConnectionMaker.class})
 class MemberDaoTest {
 
-    ApplicationContext ctx;
+    @Autowired
     MemberDao dao;
 
     @BeforeAll
@@ -20,9 +22,6 @@ class MemberDaoTest {
 
     @BeforeEach
     void setUp() {
-        ctx = new AnnotationConfigApplicationContext(DaoFactory.class);
-        dao = ctx.getBean("memberDao", MemberDao.class);
-
         log.info("단위 테스트 시작");
     }
 
@@ -33,8 +32,8 @@ class MemberDaoTest {
         dao.saveMember(member);
         Member member2 = dao.getMember(1L);
 
-        Assertions.assertThat(member.getName()).isEqualTo(member.getName());
-        Assertions.assertThat(member.getAge()).isEqualTo(member.getAge());
+        assertThat(member.getName()).isEqualTo(member.getName());
+        assertThat(member.getAge()).isEqualTo(member.getAge());
 
     }
 
@@ -45,15 +44,12 @@ class MemberDaoTest {
         dao.saveMember(member);
         Member foundMember = dao.findMember(member.getId());
 
-        Assertions.assertThat(member).isEqualTo(foundMember);
+        assertThat(member).isEqualTo(foundMember);
 
     }
 
     @AfterEach
     void tearDown() {
-        ctx = null;
-        dao = null;
-
         log.info("단위 테스트 종료");
     }
 
