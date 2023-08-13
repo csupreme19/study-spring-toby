@@ -56,4 +56,7 @@ public class MemberDao {
         return true;
     }
 
+    public Member findMember(Long id) {
+        return getMember(id);
+    }
 }

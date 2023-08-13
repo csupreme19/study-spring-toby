@@ -33,7 +33,7 @@ class MemberDaoTest {
 
         Member member = new Member(1L, "최승훈", 10);
         dao.saveMember(member);
-        Member foundMember = dao.findMember();
+        Member foundMember = dao.findMember(member.getId());
 
         Assertions.assertThat(member).isEqualTo(foundMember);
 
