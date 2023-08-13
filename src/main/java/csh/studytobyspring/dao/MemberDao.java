@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Dao {
+public class MemberDao {
 
     private ThreadLocal<Integer> num = new ThreadLocal<>() {
         @Override
@@ -20,16 +20,16 @@ public class Dao {
         return num.get();
     }
 
-    private static Dao INSTANCE;
+    private static MemberDao INSTANCE;
 
-    public static synchronized Dao getInstance() {
-        if (INSTANCE == null) INSTANCE = new Dao(new PostgresqlConnectionMaker());
+    public static synchronized MemberDao getInstance() {
+        if (INSTANCE == null) INSTANCE = new MemberDao(new PostgresqlConnectionMaker());
         return INSTANCE;
     }
 
     private final ConnectionMaker connectionMaker;
 
-    public Dao(ConnectionMaker connectionMaker) {
+    public MemberDao(ConnectionMaker connectionMaker) {
         this.connectionMaker = connectionMaker;
     }
 

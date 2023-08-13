@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 public class DaoFactory {
 
     @Bean
-    public Dao dao() {
-        return new Dao(connectionMaker());
+    public MemberDao memberDao() {
+        return new MemberDao(connectionMaker());
     }
 
     @Bean

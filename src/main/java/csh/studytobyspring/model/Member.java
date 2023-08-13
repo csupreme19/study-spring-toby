@@ -12,7 +12,7 @@ import lombok.ToString;
 public class Member {
 
     private Long id;
-    private String username;
+    private String name;
     private Integer age;
 
 }
