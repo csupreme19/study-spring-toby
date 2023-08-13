@@ -8,11 +8,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MemberDaoTest {
 
-    MemberDao dao;
+    MemberDeleteAll dao;
 
     @BeforeEach
     void setUp() {
-        dao = new MemberDao(new PostgresqlConnectionMaker());
+        dao = new MemberDeleteAll(new PostgresqlConnectionMaker());
     }
 
     @Test

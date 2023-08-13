@@ -3,18 +3,19 @@ package csh.studytobyspring.dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public abstract class MemberDao {
+public class MemberDeleteAll extends MemberDao {
 
-    abstract PreparedStatement prepareStatement(Connection conn) throws SQLException;
+    @Override
+    PreparedStatement prepareStatement(Connection conn) throws SQLException {
+        return conn.prepareStatement("delete from members");
+    }
 
-//    ConnectionMaker connectionMaker;
-
-//    public MemberDao(ConnectionMaker connectionMaker) {
-//        this.connectionMaker = connectionMaker;
+//    public MemberDeleteAll(ConnectionMaker connectionMaker) {
+//        super(connectionMaker);
 //    }
 
 //    public static Map<Long, Member> memberMap = new HashMap<>();
-
+//
 //    public Member saveMember(Member member) {
 //        return memberMap.put(member.getId(), member);
 //    }
