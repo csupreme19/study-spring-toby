@@ -33,13 +33,13 @@ public class Dao {
         this.connectionMaker = connectionMaker;
     }
 
-    public static Map<String, Member> memberMap = new HashMap<>();
+    public static Map<Long, Member> memberMap = new HashMap<>();
 
     public Member saveMember(Member member) {
         return memberMap.put(member.getId(), member);
     }
 
-    public Member getMember(String id) {
+    public Member getMember(Long id) {
         return memberMap.get(id);
     }
 
@@ -47,11 +47,11 @@ public class Dao {
         return memberMap.values().stream().toList();
     }
 
-    public Member updateMember(String id, Member updateMember) {
+    public Member updateMember(Long id, Member updateMember) {
         return memberMap.put(id, updateMember);
     }
 
-    public boolean deleteMember(String id) {
+    public boolean deleteMember(Long id) {
         memberMap.remove(id);
         return true;
     }
