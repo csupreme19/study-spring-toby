@@ -1,41 +1,43 @@
 package csh.studytobyspring.dao;
 
+import csh.studytobyspring.constant.Level;
 import csh.studytobyspring.model.Member;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MemberDaoTest {
 
-    MemberDeleteAll dao;
+    static class MockMemberDao extends MemberDao {
+        private Map<Long, Member> members = new HashMap<>();
 
-    @BeforeEach
-    void setUp() {
-        dao = new MemberDeleteAll(new PostgresqlConnectionMaker());
+        @Override
+        public Member add(Member member) {
+            members.put(member.getId(), member);
+            return member;
+        }
+
+        @Override
+        public List<Member> getAll() {
+            return members.values().stream().toList();
+        }
     }
 
     @Test
+    @DisplayName("멤버 조회 테스트")
     void getMember() {
+        MemberDao dao = new MockMemberDao();
+        Member member = new Member(1L, "최승훈", 10, Level.BRONZE);
+        dao.add(member);
+        Member foundMember = dao.getAll().get(0);
 
-        Member member = new Member(1L, "최승훈", 10);
-        dao.saveMember(member);
-        Member member2 = dao.getMember(1L);
-
-        assertThat(member.getName()).isEqualTo(member.getName());
-        assertThat(member.getAge()).isEqualTo(member.getAge());
-
-    }
-
-    @Test
-    void findMember() {
-
-        Member member = new Member(1L, "최승훈", 10);
-        dao.saveMember(member);
-        Member foundMember = dao.findMember(member.getId());
-
-        assertThat(member).isEqualTo(foundMember);
-
+        assertThat(member.getName()).isEqualTo(foundMember.getName());
+        assertThat(member.getAge()).isEqualTo(foundMember.getAge());
     }
 
 }

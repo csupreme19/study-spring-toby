@@ -3,7 +3,6 @@ package csh.studytobyspring.dao;
 import csh.studytobyspring.model.Member;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.List;
 
 public class MemberDao {
@@ -15,13 +14,12 @@ public class MemberDao {
         this.jdbcContext.setDataSource(dataSource);
     }
 
-    public void deleteAll() {
-        this.jdbcContext.query("delete from members");
+    public Member add(Member member) {
+        return member;
     }
 
-    public void update(Connection c, Member member) {
-        jdbcContext.query("update member set level=" + member.getLevel()
-                + "where id=" + member.getId());
+    public void deleteAll() {
+        this.jdbcContext.query("delete from members");
     }
 
     public List<Member> getAll() {

@@ -11,9 +11,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 @RequiredArgsConstructor
 public class MemberServiceTx implements MemberService {
 
-    private final MemberDao memberDao;
     private final PlatformTransactionManager txManager;
-    private final MemberService memberService = new MemberServiceImpl(memberDao);
+    private MemberService memberService = new MemberServiceImpl(new MemberDao());
 
     public void upgradeLevels() {
         TransactionStatus txStatus = txManager.getTransaction(new DefaultTransactionDefinition());
