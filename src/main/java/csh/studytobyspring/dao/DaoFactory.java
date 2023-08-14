@@ -7,13 +7,8 @@ import org.springframework.context.annotation.Configuration;
 public class DaoFactory {
 
     @Bean
-    JdbcContext jdbcContext() {
-        return new JdbcContext();
-    }
-
-    @Bean
-    public ConnectionMaker connectionMaker() {
-        return new PostgresqlConnectionMaker();
+    JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate();
     }
 
 }
