@@ -1,9 +1,18 @@
 package csh.studytobyspring.constant;
 
-public abstract class Level {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-    private static final int BRONZE = 1;
-    private static final int SILVER = 2;
-    private static final int GOLD = 3;
+@Getter
+@AllArgsConstructor
+public enum Level {
+
+    GOLD(3, null),
+    SILVER(2, GOLD),
+    BRONZE(1, SILVER);
+
+    private final int value;
+
+    private final Level next;
 
 }
