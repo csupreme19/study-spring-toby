@@ -14,6 +14,23 @@ import java.sql.Statement;
 @Slf4j
 public class JdbcContext {
 
+    public void executeSqlCheckedException(final String query) throws SQLException {
+        try {
+            workWithStatementStrategy(
+                    new StatementStrategy() {
+                        public PreparedStatement prepareStatement(Connection c) throws SQLException {
+                            return c.prepareStatement(query);
+                        }
+                    }
+            );
+        } catch (SQLException e) {
+            throw e;
+        } catch (ConnectException e) {
+            // do nothing
+        }
+    }
+
+
     /**
      * @throws RuntimeSQLException     쿼리 실행 예외
      * @throws RuntimeConnectException 커넥션 연결 실패
