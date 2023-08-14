@@ -3,6 +3,7 @@ package csh.studytobyspring.dao;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
+import java.net.ConnectException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import java.sql.Statement;
 @Slf4j
 public class JdbcContext {
 
-    public void executeSql(final String query) throws SQLException {
+    public void executeSql(final String query) throws SQLException, ConnectException {
         workWithStatementStrategy(
                 new StatementStrategy() {
                     public PreparedStatement prepareStatement(Connection c) throws SQLException {
