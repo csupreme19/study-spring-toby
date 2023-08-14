@@ -1,22 +1,18 @@
 package csh.studytobyspring;
 
-import csh.studytobyspring.dao.DaoFactory;
 import csh.studytobyspring.dao.MemberDao;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.net.ConnectException;
-import java.sql.SQLException;
+import csh.studytobyspring.exception.RuntimeConnectException;
+import csh.studytobyspring.exception.RuntimeSQLException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class Client {
 
-    void call() throws SQLException, ConnectException {
+    @Autowired
+    MemberDao dao;
 
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(DaoFactory.class);
-        MemberDao dao = ctx.getBean(MemberDao.class);
 
+    void call() throws RuntimeSQLException, RuntimeConnectException {
         dao.deleteAll();
-
     }
 
 

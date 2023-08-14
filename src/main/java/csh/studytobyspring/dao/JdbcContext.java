@@ -1,5 +1,7 @@
 package csh.studytobyspring.dao;
 
+import csh.studytobyspring.exception.RuntimeConnectException;
+import csh.studytobyspring.exception.RuntimeSQLException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
@@ -12,14 +14,24 @@ import java.sql.Statement;
 @Slf4j
 public class JdbcContext {
 
-    public void executeSql(final String query) throws SQLException, ConnectException {
-        workWithStatementStrategy(
-                new StatementStrategy() {
-                    public PreparedStatement prepareStatement(Connection c) throws SQLException {
-                        return c.prepareStatement(query);
+    /**
+     * @throws RuntimeSQLException     쿼리 실행 예외
+     * @throws RuntimeConnectException 커넥션 연결 실패
+     */
+    public void executeSql(final String query) throws RuntimeSQLException, RuntimeConnectException {
+        try {
+            workWithStatementStrategy(
+                    new StatementStrategy() {
+                        public PreparedStatement prepareStatement(Connection c) throws SQLException {
+                            return c.prepareStatement(query);
+                        }
                     }
-                }
-        );
+            );
+        } catch (SQLException e) {
+            throw new RuntimeSQLException(e);
+        } catch (ConnectException e) {
+            throw new RuntimeConnectException(e);
+        }
     }
 
     private DataSource dataSource;
@@ -34,12 +46,13 @@ public class JdbcContext {
         this.connectionMaker = connectionMaker;
     }
 
-    public void workWithStatementStrategy(StatementStrategy stmt) throws SQLException {
+    public void workWithStatementStrategy(StatementStrategy stmt) throws SQLException, ConnectException {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
             conn = connectionMaker.getConnection();
+            if (conn == null) throw new ConnectException();
             pstmt = stmt.prepareStatement(conn);
             rs = pstmt.executeQuery();
         } catch (SQLException e) {

@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
-import java.net.ConnectException;
-import java.sql.SQLException;
 
 public class MemberDao {
 
@@ -14,7 +12,7 @@ public class MemberDao {
 
     private JdbcContext jdbcContext;
 
-    public void deleteAll() throws SQLException, ConnectException {
+    public void deleteAll() {
         this.jdbcContext.executeSql("delete from members");
     }
 
