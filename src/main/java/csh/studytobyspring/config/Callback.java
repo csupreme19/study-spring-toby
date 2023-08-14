@@ -1,4 +1,4 @@
-package csh.studytobyspring.dao;
+package csh.studytobyspring.config;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,5 +1,6 @@
 package csh.studytobyspring.dao;
 
+import csh.studytobyspring.config.JdbcTemplate;
 import csh.studytobyspring.model.Member;
 
 import javax.sql.DataSource;

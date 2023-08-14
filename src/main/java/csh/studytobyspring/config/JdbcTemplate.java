@@ -1,4 +1,4 @@
-package csh.studytobyspring.dao;
+package csh.studytobyspring.config;
 
 import csh.studytobyspring.exception.RuntimeSQLException;
 import lombok.extern.slf4j.Slf4j;

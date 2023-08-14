@@ -1,15 +1,28 @@
 package csh.studytobyspring;
 
-import csh.studytobyspring.dao.MemberDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import csh.studytobyspring.config.TransactionHandler;
+import csh.studytobyspring.service.MemberService;
+import csh.studytobyspring.service.MemberServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
 
+import java.lang.reflect.Proxy;
+
+@Component
+@RequiredArgsConstructor
 public class Client {
 
-    @Autowired
-    MemberDao dao;
+    private final MemberServiceImpl memberService;
+
+    private final PlatformTransactionManager txManager;
 
     void call() {
-        dao.deleteAll();
+        TransactionHandler txHandler = new TransactionHandler();
+        txHandler.setTarget(memberService);
+        txHandler.setTransactionManager(txManager);
+        MemberService txMemberServcice = (MemberService) Proxy.newProxyInstance(getClass().getClassLoader()
+                , new Class[]{MemberService.class}, txHandler);
     }
 
 
