@@ -2,20 +2,46 @@ package csh.studytobyspring.service;
 
 import csh.studytobyspring.dao.MemberDao;
 import csh.studytobyspring.model.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import java.sql.Connection;
+import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class MemberService {
 
-    public void updateLevel(Connection c, Member member) {
-        member.updateLevel();
-        memberDao.update(c, member);
+    private final MemberDao memberDao;
+
+    private final PlatformTransactionManager txManager;
+
+    public void updateLevels() {
+        // 트랜잭션 경계설정 부분
+        TransactionStatus txStatus = txManager.getTransaction(new DefaultTransactionDefinition());
+        try {
+            // 비즈니스 로직 부분
+            List<Member> members = memberDao.getAll();
+            for (Member member : members) {
+                if (canUpgradeLevel(member)) upgradeLevel(member);
+            }
+
+            // 트랜잭션 경계설정 부분
+            txManager.commit(txStatus);
+        } catch (Exception e) {
+            txManager.rollback(txStatus);
+            throw e;
+        }
     }
 
-    MemberDao memberDao;
+    private void upgradeLevel(Member member) {
+        member.upgradeLevel();
+    }
 
-    public void setMemberDao(MemberDao memberDao) {
-        this.memberDao = memberDao;
+    private boolean canUpgradeLevel(Member member) {
+        return member.getLevel().getNext() != null;
     }
 
 }

@@ -4,6 +4,7 @@ import csh.studytobyspring.model.Member;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.util.List;
 
 public class MemberDao {
 
@@ -23,4 +24,7 @@ public class MemberDao {
                 + "where id=" + member.getId());
     }
 
+    public List<Member> getAll() {
+        return null;
+    }
 }

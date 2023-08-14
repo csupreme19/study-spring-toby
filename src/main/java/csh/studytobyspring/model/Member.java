@@ -17,7 +17,7 @@ public class Member {
     private Integer age;
     private Level level;
 
-    public void updateLevel() {
+    public void upgradeLevel() {
         this.level = level.getNext();
     }
 }
