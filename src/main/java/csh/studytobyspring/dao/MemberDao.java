@@ -1,9 +1,10 @@
 package csh.studytobyspring.dao;
 
-import csh.studytobyspring.exception.CustomRuntimeException;
+import jakarta.persistence.PersistenceException;
+import org.hibernate.HibernateException;
+import org.mybatis.spring.MyBatisSystemException;
 
 import javax.sql.DataSource;
-import java.net.ConnectException;
 import java.sql.SQLException;
 
 public class MemberDao {
@@ -19,20 +20,16 @@ public class MemberDao {
         this.jdbcContext.executeSql("delete from members");
     }
 
-    public void add() throws SQLException {
-        try {
-            jdbcContext.executeSqlCheckedException("");
-        } catch (SQLException e1) {
-            throw new CustomRuntimeException(e1);
-        } catch (ConnectException e2) {
-            throw new CustomRuntimeException(e2);
-        } catch (IllegalStateException e3) {
-            throw new CustomRuntimeException(e3);
-
-        }
+    public void addJdbc() throws SQLException {
     }
 
-    private void recover() {
+    public void addJpa() throws PersistenceException {
+    }
+
+    public void addHibernate() throws HibernateException {
+    }
+
+    public void addMybatis() throws MyBatisSystemException {
     }
 
 }
