@@ -1,5 +1,7 @@
 package csh.studytobyspring.dao;
 
+import org.springframework.dao.DuplicateKeyException;
+
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
@@ -20,7 +22,9 @@ public class MemberDao {
         try {
             jdbcContext.executeSqlCheckedException("");
         } catch (SQLException e) {
-            throw e;
+            if (e.getErrorCode() == 42000)
+                throw new DuplicateKeyException(e.getMessage(), e);
+            else throw e;
         }
     }
 
