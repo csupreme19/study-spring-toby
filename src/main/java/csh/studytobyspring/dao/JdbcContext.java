@@ -14,7 +14,7 @@ import java.sql.Statement;
 @Slf4j
 public class JdbcContext {
 
-    public void executeSqlCheckedException(final String query) throws SQLException {
+    public void executeSqlCheckedException(final String query) throws SQLException, ConnectException {
         try {
             workWithStatementStrategy(
                     new StatementStrategy() {
@@ -26,7 +26,7 @@ public class JdbcContext {
         } catch (SQLException e) {
             throw e;
         } catch (ConnectException e) {
-            // do nothing
+            throw e;
         }
     }
 
