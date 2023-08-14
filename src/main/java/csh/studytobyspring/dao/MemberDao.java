@@ -20,7 +20,7 @@ public class MemberDao {
         try {
             jdbcContext.executeSqlCheckedException("");
         } catch (SQLException e) {
-            recover();
+            throw e;
         }
     }
 
