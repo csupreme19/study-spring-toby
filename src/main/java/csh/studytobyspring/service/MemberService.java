@@ -22,17 +22,20 @@ public class MemberService {
         // 트랜잭션 경계설정 부분
         TransactionStatus txStatus = txManager.getTransaction(new DefaultTransactionDefinition());
         try {
-            // 비즈니스 로직 부분
-            List<Member> members = memberDao.getAll();
-            for (Member member : members) {
-                if (canUpgradeLevel(member)) upgradeLevel(member);
-            }
-
+            upgradeLevel();
             // 트랜잭션 경계설정 부분
             txManager.commit(txStatus);
         } catch (Exception e) {
             txManager.rollback(txStatus);
             throw e;
+        }
+    }
+
+    private void upgradeLevel() {
+        // 비즈니스 로직 부분
+        List<Member> members = memberDao.getAll();
+        for (Member member : members) {
+            if (canUpgradeLevel(member)) upgradeLevel(member);
         }
     }
 
