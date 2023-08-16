@@ -29,27 +29,12 @@ class MemberDaoTest {
 
         dao.add(member);
         Member foundMember = dao.getAll().get(0);
-        
+
         Assertions.assertThat(member.getName()).isEqualTo(foundMember.getName());
         Assertions.assertThat(member.getAge()).isEqualTo(foundMember.getAge());
 
         BDDMockito.verify(dao, Mockito.times(1)).add(member);
         BDDMockito.verify(dao, Mockito.times(1)).getAll();
     }
-
-    //    static class MockMemberDao extends MemberDao {
-//        private Map<Long, Member> members = new HashMap<>();
-//
-//        @Override
-//        public Member add(Member member) {
-//            members.put(member.getId(), member);
-//            return member;
-//        }
-//
-//        @Override
-//        public List<Member> getAll() {
-//            return members.values().stream().toList();
-//        }
-//    }
 
 }

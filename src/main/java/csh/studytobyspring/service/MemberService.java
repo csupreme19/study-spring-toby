@@ -1,7 +1,9 @@
 package csh.studytobyspring.service;
 
+import csh.studytobyspring.constant.Level;
+
 public interface MemberService {
 
-    void upgradeLevels();
+    Level upgradeLevels();
 
 }
