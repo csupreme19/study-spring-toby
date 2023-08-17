@@ -1,9 +1,13 @@
 package csh.studytobyspring;
 
 import csh.studytobyspring.config.MemberServiceFactory;
+import csh.studytobyspring.dao.MemberDao;
 import csh.studytobyspring.service.MemberService;
+import csh.studytobyspring.service.MemberServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,6 +37,19 @@ class StudyTobySpringApplicationTests {
 
         MemberService memberService1 = factory.memberServiceSingleton();
         MemberService memberService2 = factory.memberServiceSingleton();
+
+        System.out.println("memberService1=" + memberService1);
+        System.out.println("memberService2=" + memberService2);
+
+        assertThat(memberService1).isSameAs(memberService2);
+    }
+
+    @Test
+    void singletonApplicationContext() {
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(MemberServiceImpl.class, MemberDao.class);
+
+        MemberService memberService1 = ctx.getBean(MemberService.class);
+        MemberService memberService2 = ctx.getBean(MemberService.class);
 
         System.out.println("memberService1=" + memberService1);
         System.out.println("memberService2=" + memberService2);
