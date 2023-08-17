@@ -20,7 +20,12 @@ public class JdbcTemplate {
      */
     public void query(final String query) throws RuntimeSQLException {
         try {
-            template(new DeleteAllCallback());
+            template(new Callback() {
+                @Override
+                public PreparedStatement prepareStatement(Connection conn) throws SQLException {
+                    return conn.prepareStatement("delete from members");
+                }
+            });
         } catch (SQLException e) {
             throw new RuntimeSQLException(e);
         }
