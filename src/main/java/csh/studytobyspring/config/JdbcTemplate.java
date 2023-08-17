@@ -20,11 +20,12 @@ public class JdbcTemplate {
      */
     public void query(final String query) throws RuntimeSQLException {
         try {
-            template(c -> c.prepareStatement(query));
+            template(new DeleteAllCallback());
         } catch (SQLException e) {
             throw new RuntimeSQLException(e);
         }
     }
+
 
     public void template(Callback stmt) throws SQLException {
         Connection c = dataSource.getConnection();
