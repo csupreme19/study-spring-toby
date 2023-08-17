@@ -31,13 +31,13 @@ class StudyTobySpringApplicationTests {
     void singleton() {
         MemberServiceFactory factory = new MemberServiceFactory();
 
-        MemberService memberService1 = factory.memberService();
-        MemberService memberService2 = factory.memberService();
+        MemberService memberService1 = factory.memberServiceSingleton();
+        MemberService memberService2 = factory.memberServiceSingleton();
 
         System.out.println("memberService1=" + memberService1);
         System.out.println("memberService2=" + memberService2);
 
-        assertThat(memberService1).isNotSameAs(memberService2);
+        assertThat(memberService1).isSameAs(memberService2);
     }
 
 
