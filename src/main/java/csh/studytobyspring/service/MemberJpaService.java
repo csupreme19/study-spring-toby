@@ -1,51 +1,50 @@
 package csh.studytobyspring.service;
 
 import csh.studytobyspring.constant.Level;
-import csh.studytobyspring.dao.MemberDao;
-import csh.studytobyspring.dao.TeamDao;
+import csh.studytobyspring.exception.RuntimeSQLException;
 import csh.studytobyspring.model.Member;
+import csh.studytobyspring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Slf4j
+@Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService {
+public class MemberJpaService implements MemberService {
 
-    private final MemberDao memberDao;
-
-    private TeamDao teamDao = new TeamDao();
+    private final MemberRepository memberRepository;
 
     @Override
-    public void addChecked(Member member) {
-        memberDao.add(member);
-
-//        Team team = new Team(1L, "teamA", List.of(member));
-//        teamDao.add(team);
+    public void addChecked(Member member) throws SQLException {
+        memberRepository.save(member);
+        if (member.getId() == 999L) throw new SQLException();
     }
 
     @Override
     public void addUnchecked(Member member) {
-
+        memberRepository.save(member);
+        if (member.getId() == 999L) throw new RuntimeSQLException();
     }
 
     @Override
     public void clear() {
-
+        memberRepository.deleteAll();
     }
 
-    @Override
     public List<Member> findAll() {
-        return memberDao.getAll();
+        return memberRepository.findAll();
     }
 
     public Level upgradeLevels() {
-        List<Member> members = memberDao.getAll();
+        List<Member> members = memberRepository.findAll();
         if (isEmpty(members)) return Level.BRONZE;
         for (Member member : members) {
             if (canUpgradeLevel(member)) upgradeLevel(member);
@@ -60,5 +59,4 @@ public class MemberServiceImpl implements MemberService {
     private boolean canUpgradeLevel(Member member) {
         return member.getLevel().getNext() != null;
     }
-
 }
