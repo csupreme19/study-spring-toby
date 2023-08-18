@@ -21,7 +21,7 @@ public class MemberJpaServiceTest {
 
     @BeforeEach
     void setUp() {
-        memberService.clear();
+//        memberService.clear();
     }
 
     @Test
@@ -38,6 +38,12 @@ public class MemberJpaServiceTest {
         assertThatThrownBy(() -> memberService.addUnchecked(new Member(999L, "최승훈", 28)))
                 .isInstanceOf(RuntimeSQLException.class);
         assertThat(memberService.findAll()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("프록시 내부 호출 미적용")
+    void proxyInternalCall() {
+        memberService.external();
     }
 
 }

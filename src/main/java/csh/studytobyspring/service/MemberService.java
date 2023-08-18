@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface MemberService {
 
+    default void external() {
+    }
+
     void addChecked(Member member) throws SQLException;
 
     void addUnchecked(Member member);

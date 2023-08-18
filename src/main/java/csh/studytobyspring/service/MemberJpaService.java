@@ -22,6 +22,15 @@ public class MemberJpaService implements MemberService {
 
     private final MemberRepository memberRepository;
 
+    private void internal() {
+        log.info("internal call()");
+    }
+
+    public void external() {
+        log.info("external call()");
+        internal();
+    }
+
     @Override
     public void addChecked(Member member) throws SQLException {
         memberRepository.save(member);
