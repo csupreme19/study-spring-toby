@@ -4,6 +4,7 @@ import csh.studytobyspring.constant.Level;
 import csh.studytobyspring.model.Member;
 import csh.studytobyspring.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,15 +18,17 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberRepository memberDao;
+    private MemberRepository memberRepository;
 
-    public MemberServiceImpl(MemberRepository memberDao) {
-        this.memberDao = memberDao;
+    @Autowired
+    public void setMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
+
 
     @Override
     public void addChecked(Member member) {
-        memberDao.add(member);
+        memberRepository.add(member);
     }
 
     @Override
@@ -40,11 +43,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> findAll() {
-        return memberDao.getAll();
+        return memberRepository.getAll();
     }
 
     public Level upgradeLevels() {
-        List<Member> members = memberDao.getAll();
+        List<Member> members = memberRepository.getAll();
         if (isEmpty(members)) return Level.BRONZE;
         for (Member member : members) {
             if (canUpgradeLevel(member)) upgradeLevel(member);
