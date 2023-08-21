@@ -17,7 +17,7 @@
     </bean>
 
     <bean id="MemberDao"
-          class="csh.studytobyspring.dao.MemberDao">
+          class="csh.studytobyspring.repository.MemberRepository">
     </bean>
 
 </beans>

@@ -4,14 +4,12 @@ import csh.studytobyspring.model.MyBean;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.io.FileNotFoundException;
 
-//@SpringBootApplication
-
-@ComponentScan
+@SpringBootApplication
 public class StudyTobySpringApplication {
 
     public static void main(String[] args) throws FileNotFoundException {

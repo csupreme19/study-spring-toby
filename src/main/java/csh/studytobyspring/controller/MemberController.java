@@ -1,9 +1,9 @@
 package csh.studytobyspring.controller;
 
 import csh.studytobyspring.service.MemberService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
-@Component
+@Controller
 public class MemberController {
 
     private final MemberService memberService;

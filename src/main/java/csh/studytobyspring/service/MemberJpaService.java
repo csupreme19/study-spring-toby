@@ -3,7 +3,7 @@ package csh.studytobyspring.service;
 import csh.studytobyspring.constant.Level;
 import csh.studytobyspring.exception.RuntimeSQLException;
 import csh.studytobyspring.model.Member;
-import csh.studytobyspring.repository.MemberRepository;
+import csh.studytobyspring.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @RequiredArgsConstructor
 public class MemberJpaService implements MemberService {
 
-    private final MemberRepository memberRepository;
+    private final MemberJpaRepository memberRepository;
 
     private void internal() {
         log.info("internal call()");

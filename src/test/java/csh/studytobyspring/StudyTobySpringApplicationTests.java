@@ -1,7 +1,7 @@
 package csh.studytobyspring;
 
 import csh.studytobyspring.config.MemberServiceFactory;
-import csh.studytobyspring.dao.MemberDao;
+import csh.studytobyspring.repository.MemberRepository;
 import csh.studytobyspring.service.MemberService;
 import csh.studytobyspring.service.MemberServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ class StudyTobySpringApplicationTests {
 
     @Test
     void singletonApplicationContext() {
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(MemberServiceImpl.class, MemberDao.class);
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(MemberServiceImpl.class, MemberRepository.class);
 
         MemberService memberService1 = ctx.getBean(MemberService.class);
         MemberService memberService2 = ctx.getBean(MemberService.class);

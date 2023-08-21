@@ -1,8 +1,8 @@
 package csh.studytobyspring.service;
 
 import csh.studytobyspring.constant.Level;
-import csh.studytobyspring.dao.MemberDao;
 import csh.studytobyspring.model.Member;
+import csh.studytobyspring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -15,7 +15,7 @@ import java.util.List;
 public class MemberServiceTx implements MemberService {
 
     private final PlatformTransactionManager txManager;
-    private MemberService memberService = new MemberServiceImpl(new MemberDao());
+    private MemberService memberService = new MemberServiceImpl(new MemberRepository());
 
     @Override
     public void addChecked(Member member) {
@@ -29,7 +29,7 @@ public class MemberServiceTx implements MemberService {
 
     @Override
     public void clear() {
-        
+
     }
 
     @Override

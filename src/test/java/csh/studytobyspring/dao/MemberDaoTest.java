@@ -2,6 +2,7 @@ package csh.studytobyspring.dao;
 
 import csh.studytobyspring.constant.Level;
 import csh.studytobyspring.model.Member;
+import csh.studytobyspring.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.verify;
 class MemberDaoTest {
 
     @Mock
-    MemberDao dao;
+    MemberRepository dao;
 
     @Test
     @DisplayName("멤버 조회 테스트")
