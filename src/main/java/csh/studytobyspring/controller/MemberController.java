@@ -1,11 +1,14 @@
 package csh.studytobyspring.controller;
 
 import csh.studytobyspring.service.MemberService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
+@Component
 public class MemberController {
 
     private final MemberService memberService;
 
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 }

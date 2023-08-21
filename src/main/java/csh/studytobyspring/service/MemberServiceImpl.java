@@ -4,8 +4,8 @@ import csh.studytobyspring.constant.Level;
 import csh.studytobyspring.dao.MemberDao;
 import csh.studytobyspring.dao.TeamDao;
 import csh.studytobyspring.model.Member;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -14,10 +14,15 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Slf4j
 @Transactional
-@RequiredArgsConstructor
+
+@Component
 public class MemberServiceImpl implements MemberService {
 
     private final MemberDao memberDao;
+
+    public MemberServiceImpl(MemberDao memberDao) {
+        this.memberDao = memberDao;
+    }
 
     private TeamDao teamDao = new TeamDao();
 

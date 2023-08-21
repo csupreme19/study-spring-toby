@@ -2,10 +2,12 @@ package csh.studytobyspring.dao;
 
 import csh.studytobyspring.config.JdbcTemplate;
 import csh.studytobyspring.model.Member;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.List;
 
+@Component
 public class MemberDao {
 
     private JdbcTemplate jdbcContext;
