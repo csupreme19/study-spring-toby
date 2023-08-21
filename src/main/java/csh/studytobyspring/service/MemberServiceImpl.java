@@ -18,13 +18,12 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    private MemberRepository memberRepository;
-
     @Autowired
-    public void setMemberRepository(MemberRepository memberRepository) {
+    private final MemberRepository memberRepository;
+
+    public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
-
 
     @Override
     public void addChecked(Member member) {
