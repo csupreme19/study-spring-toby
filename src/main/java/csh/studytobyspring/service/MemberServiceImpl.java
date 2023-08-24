@@ -5,7 +5,6 @@ import csh.studytobyspring.model.Member;
 import csh.studytobyspring.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @Slf4j
 @Transactional
 
-@Service
+//@Service
 public class MemberServiceImpl implements MemberService {
 
     @Autowired

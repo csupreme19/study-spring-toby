@@ -29,6 +29,7 @@ public class JoinPointAspect {
             log.info("{}() method - transaction commit", method);
         } catch (Exception e) {
             log.error("{}() method - transaction rollback", method);
+            throw e;
         }
         return result;
     }
